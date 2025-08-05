@@ -1,0 +1,76 @@
+ 
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(120deg, #7c0000, #001728);   
+  transition: filter 0.3s ease;
+}   
+
+.container {
+    display: flex;                         
+    justify-content: center;              
+    align-items: center;                  
+    gap: 30px;                            
+    height: 100vh;                        
+}
+
+
+.box {
+    height: 90px;                          
+    width: 100px;
+    border: 2px solid black;              
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* zoom in out ke time ka animation */
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+
+.box:hover {
+    transform: scale(1.5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+
+.blurred {
+    filter: blur(4px);
+}
+
+.emoji-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+   overflow: hidden;
+  z-index: 0; 
+  pointer-events: none;/*makes emojis unclickable */
+}
+.emoji {
+  position: absolute;
+  font-size: 24px;
+  animation: float 10s linear infinite; /*Runs the float animation for 10 seconds infinite times,pre set as once*/
+  opacity: 0.9; /* not 1 jisse collide nah kare for the on going page*/
+}
+
+
+@keyframes float {/* yeh 0 , 25 , 50 , yeh nimation ka percentage completion hai naaki screen*/
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }/*emoji screen ke bottom se aayega, bina ghoome aur invisible hoga*/
+  20% {
+    opacity: 0.5; 
+  }
+  50% {
+    opacity: 0.8; /* Beech me aate waqt emoji almost fully visible hota jaayega */
+  }
+  100% {
+    transform: translateY(-10vh) rotate(360deg);
+    opacity: 0.2;
+  }
+}
