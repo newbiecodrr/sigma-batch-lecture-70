@@ -1,0 +1,214 @@
+
+/* basic reset*/
+*{
+    margin : 0;
+    padding : 0;
+    box-sizing : border-box;
+
+}
+body{
+    background : #ba6ecd;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    min-height : 100vh;
+    padding: 1rem; /* FIX: was padding= (invalid syntax) — keeps content off screen edges on mobile */
+    font-family : 'Poppins', sans-serif;
+
+}
+
+.container{
+    background : rgb(241, 87, 70);
+    border-radius : 1rem;
+    box-shadow : 0 1rem 2rem rgba(0,0,0,0.2);
+    width : 100%;
+    max-width : 600px;
+    overflow : hidden;
+    position : relative;
+}
+
+.screen{
+    display: none; /* FIX: hide inactive screens so only the active one is visible */
+    padding : 2rem;
+    text-align : center;
+}
+
+.screen.active{
+    display : block;
+}
+
+/* Animates the question area when new content appears. */
+#quiz-screen.question-enter .quiz-header,
+#quiz-screen.question-enter .answers-container{
+    animation: question-enter 0.4s ease-out both;
+}
+
+/* Makes the answer list follow the question heading by a small delay. */
+#quiz-screen.question-enter .answers-container{
+    animation-delay: 0.06s;
+}
+
+/* Fades the current question away before JavaScript displays the next one. */
+#quiz-screen.question-exit .quiz-header,
+#quiz-screen.question-exit .answers-container{
+    opacity: 0;
+    transform: translateY(-12px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+@keyframes question-enter{
+    from{
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Respects devices where the user has requested less animation. */
+@media (prefers-reduced-motion: reduce){
+    #quiz-screen.question-enter .quiz-header,
+    #quiz-screen.question-enter .answers-container{
+        animation: none;
+    }
+
+    #quiz-screen.question-exit .quiz-header,
+    #quiz-screen.question-exit .answers-container{
+        transition: none;
+    }
+}
+
+/* start screen*/
+#start-screen{
+    color :rgb(25, 58, 40);
+    margin-bottom : 1rem;
+    font-size : 1.5rem;
+
+}
+#text{ /*we can use #start-screen p for the same for the text to appear well on the screen */
+    color : rgb(3, 3, 3);
+    font-size : 1.2rem;
+    
+    margin: 1rem;
+}
+.quiz-header{
+    margin-bottom : 1rem;
+
+}
+#question-text{
+    color : rgb(2, 6, 4);
+    font-size : 1.5rem;
+    margin-bottom : 1rem;
+    line-height :1.5;
+
+}
+.quiz-info{
+    display : flex;
+    justify-content : space-between;
+    color : rgb(57, 23, 102);
+    margin-bottom : 15px;
+
+}
+.answers-container{ /* FIX: renamed from .answer-container to match HTML class/id "answers-container" */
+    display : flex;
+    flex-direction : column;
+    gap : 0.5rem;
+    margin-bottom : 2rem;
+}
+.answer-btn{
+    background-color: rgb(232, 200, 196);
+    color : rgb(0, 0, 0);
+    border : 2px solid black;
+    padding : 1rem;
+    border-radius : 10px;
+    cursor : pointer; /*When the user hovers over an element, the mouse cursor changes to a hand icon (like when hovering over a link).*/
+
+    text-align : left;
+
+
+
+}
+.answer-btn:hover{
+    background-color : rgb(147, 139, 240);
+    border-color : rgb(26, 20, 88);
+}
+.answer-btn.correct{
+    background-color : rgb(0, 255, 0);
+    border-color : rgb(0, 128, 0);
+    color : white;
+}
+.answer-btn.incorrect{
+    background-color : rgb(255, 0, 0);
+    border-color : rgb(128, 0, 0);
+    color : white;
+}
+.progress-bar{
+    height : 10px;
+    background-color : rgb(232, 200, 196);
+    border-radius : 5px;
+    overflow : hidden;
+    margin-top : 1rem;
+}
+#progress{ /* FIX: changed from .progress to #progress to match HTML id="progress" */
+    height: 100%;
+    background-color : rgb(127, 76, 255);
+    width :0%;
+    transition : width 0.3s ease-in-out;
+}
+
+#result-screen h1{
+    color: rgb(148, 236, 217);
+    margin-bottom: 30px;
+
+}
+
+.result-info{
+    background-color : rgb(246, 232, 232);
+    border-radius:10px;
+    padding: 20px;
+    margin-bottom : 20px;
+} 
+.result-info p{
+    color : rgb(3, 3, 3);
+    font-size : 1.2rem;
+    font-weight : bold;
+    margin-bottom : 15px;
+}
+button{
+    background-color : rgb(232, 200, 196);
+    color : rgb(0, 0, 0);
+    border : none;
+    padding : 1.5rem;
+    border-radius : 15px;
+    transition : background-color 0.3s ease-in-out;
+    cursor : pointer; /*When the user hovers over an element, the mouse cursor changes to a hand icon (like when hovering over a link).*/
+}
+button:hover{
+    background-color : rgb(147, 139, 240);
+    color : white;
+}
+
+
+/*responsive design */
+@media (max-width : 500px){
+    /*whwnevr we hit  500px and below, implement the style below*/
+    .screen{
+        padding : 1rem;
+    }
+    #start-screen h1{
+        font-size: 2rem;
+    }
+    #question-text{
+        font-size : 1.2rem;
+    }
+    .answer-btn{
+        padding: 12px; /* CLEANUP: removed duplicate padding declaration */
+        font-size : 0.9rem;
+    }
+    button{
+        padding : 1rem;
+        font-size : 1rem;
+    }
+}
